@@ -12,7 +12,7 @@ app.use((req, res, next) => {
     next();
 });
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors())
+app.use(cors("*"))
 app.use(bodyParser.json())
 app.use('/user', user)
 app.use('/foodtype', foodtype)
