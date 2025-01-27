@@ -4,6 +4,8 @@ const cors = require("cors");
 const user = require('./routers/user.router');
 const foodtype = require('./routers/foodtype.router');
 const restaurant = require('./routers/restaurant.router');
+const food = require('./routers/food.router');
+const supplier = require('./routers/supplier.router');
 
 const swaggerJsdoc = require("swagger-jsdoc")
 const swaggerUi = require("swagger-ui-express")
@@ -20,9 +22,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
-app.use('/api/user', user);
-app.use('/api/foodtype', foodtype);
-app.use('/api/restaurant', restaurant);
+app.use('/api/user', user)
+app.use('/api/foodtype', foodtype)
+app.use('/api/restaurant', restaurant)
+app.use('/api/food', food)
+app.use('/api/supplier', supplier)
 
 app.use(
     "/api-docs",

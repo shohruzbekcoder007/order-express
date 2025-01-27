@@ -11,7 +11,8 @@ router.post("/foodtypes", async (req, res) => {
         });
         return res.status(201).json(foodtype);
     } catch (error) {
-        return res.status(400).json({ error: error.message });
+        console.log(error.message);
+        return res.status(500).json({ error: "Server error" });
     }
 });
 
@@ -44,7 +45,7 @@ router.get("/foodtype/:id", async (req, res) => {
     const { id } = req.params;
     try {
         const foodtype = await prisma.foodtype.findUnique({
-            where: { id: Number(id) },
+            where: { id: String(id) },
         });
         return res.json(foodtype);
     } catch (error) {
@@ -58,7 +59,7 @@ router.put("/foodtypes/:id", async (req, res) => {
     const { name, description } = req.body;
     try {
         const updatedFoodtype = await prisma.foodtype.update({
-            where: { id: Number(id) },
+            where: { id: String(id) },
             data: { name, description },
         });
         return res.json(updatedFoodtype);

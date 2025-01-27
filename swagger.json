@@ -18,7 +18,9 @@
     "paths": {
         "/user/users": {
             "post": {
-                "tags": ["User"],
+                "tags": [
+                    "User"
+                ],
                 "summary": "Add a new user",
                 "requestBody": {
                     "required": true,
@@ -27,16 +29,37 @@
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "name": { "type": "string" },
-                                    "email": { "type": "string", "format": "email" },
-                                    "age": { "type": "integer" },
-                                    "first_name": { "type": "string" },
-                                    "last_name": { "type": "string" },
-                                    "father_name": { "type": "string" },
-                                    "connects": { "type": "integer" },
-                                    "password": { "type": "string" }
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email"
+                                    },
+                                    "age": {
+                                        "type": "integer"
+                                    },
+                                    "first_name": {
+                                        "type": "string"
+                                    },
+                                    "last_name": {
+                                        "type": "string"
+                                    },
+                                    "father_name": {
+                                        "type": "string"
+                                    },
+                                    "connects": {
+                                        "type": "integer"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
                                 },
-                                "required": ["name", "email", "password"]
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password"
+                                ]
                             }
                         }
                     }
@@ -59,7 +82,9 @@
             },
             "get": {
                 "summary": "Get all users",
-                "tags": ["User"],
+                "tags": [
+                    "User"
+                ],
                 "responses": {
                     "200": {
                         "description": "A list of users",
@@ -83,7 +108,9 @@
         "/user/user/{id}": {
             "get": {
                 "summary": "Get a user by ID",
-                "tags": ["User"],
+                "tags": [
+                    "User"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -114,7 +141,9 @@
         "/user/users/{id}": {
             "put": {
                 "summary": "Update a user",
-                "tags": ["User"],
+                "tags": [
+                    "User"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -132,9 +161,15 @@
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "name": { "type": "string" },
-                                    "email": { "type": "string" },
-                                    "age": { "type": "integer" }
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "age": {
+                                        "type": "integer"
+                                    }
                                 }
                             }
                         }
@@ -158,7 +193,9 @@
             },
             "delete": {
                 "summary": "Delete a user",
-                "tags": ["User"],
+                "tags": [
+                    "User"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -181,7 +218,9 @@
         },
         "/foodtype/foodtypes": {
             "post": {
-                "tags": ["Foodtype"],
+                "tags": [
+                    "Foodtype"
+                ],
                 "summary": "Add a new foodtype",
                 "requestBody": {
                     "required": true,
@@ -190,10 +229,17 @@
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "name": { "type": "string" },
-                                    "description": { "type": "string" }
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    }
                                 },
-                                "required": ["name", "description"]
+                                "required": [
+                                    "name",
+                                    "description"
+                                ]
                             }
                         }
                     }
@@ -216,7 +262,9 @@
             },
             "get": {
                 "summary": "Get all foodtypes",
-                "tags": ["Foodtype"],
+                "tags": [
+                    "Foodtype"
+                ],
                 "parameters": [
                     {
                         "name": "page",
@@ -258,7 +306,9 @@
         "/foodtype/foodtype/{id}": {
             "get": {
                 "summary": "Get a foodtype by ID",
-                "tags": ["Foodtype"],
+                "tags": [
+                    "Foodtype"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -289,7 +339,9 @@
         "/foodtype/foodtypes/{id}": {
             "put": {
                 "summary": "Update a foodtype",
-                "tags": ["Foodtype"],
+                "tags": [
+                    "Foodtype"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -307,8 +359,12 @@
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "name": { "type": "string" },
-                                    "description": { "type": "string" }
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    }
                                 }
                             }
                         }
@@ -332,7 +388,9 @@
             },
             "delete": {
                 "summary": "Delete a foodtype",
-                "tags": ["Foodtype"],
+                "tags": [
+                    "Foodtype"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -352,6 +410,453 @@
                     }
                 }
             }
+        },
+        "/restaurant/restaurants": {
+            "post": {
+                "tags": [
+                    "Restaurant"
+                ],
+                "summary": "Add a new restaurant",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "address": {
+                                        "type": "string"
+                                    },
+                                    "phone": {
+                                        "type": "string"
+                                    },
+                                    "about": {
+                                        "type": "string"
+                                    },
+                                    "latitude": {
+                                        "type": "number"
+                                    },
+                                    "longitude": {
+                                        "type": "number"
+                                    }
+                                },
+                                "required": [
+                                    "name",
+                                    "address",
+                                    "phone",
+                                    "about",
+                                    "latitude",
+                                    "longitude"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Restaurant created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Restaurant"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    }
+                }
+            },
+            "get": {
+                "summary": "Get all restaurants",
+                "tags": [
+                    "Restaurant"
+                ],
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "default": 1
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "default": 10
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of restaurants",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Restaurant"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        },
+        "/restaurant/restaurant/:id": {
+            "get": {
+                "summary": "Get a restaurant by ID",
+                "tags": [
+                    "Restaurant"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Restaurant found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Restaurant"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Restaurant not found"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update a restaurant",
+                "tags": [
+                    "Restaurant"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "address": {
+                                        "type": "string"
+                                    },
+                                    "phone": {
+                                        "type": "string"
+                                    },
+                                    "about": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Restaurant updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Restaurant"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete a restaurant",
+                "tags": [
+                    "Restaurant"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Restaurant deleted successfully"
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    }
+                }
+            }
+        },
+        "/food/foods": {
+            "post": {
+                "tags": [
+                    "Food"
+                ],
+                "summary": "Add a new food",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "price": {
+                                        "type": "integer"
+                                    },
+                                    "image": {
+                                        "type": "string"
+                                    },
+                                    "foodtypeId": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "name",
+                                    "description",
+                                    "price",
+                                    "image",
+                                    "foodtypeId"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Food created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Food"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    }
+                }
+            },
+            "get": {
+                "summary": "Get all foods",
+                "tags": [
+                    "Food"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of foods",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Food"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        },
+        "/food/food/:id": {
+            "get": {
+                "summary": "Get a food by ID",
+                "tags": [
+                    "Food"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Food found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Food"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Food not found"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update a food",
+                "tags": [
+                    "Food"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "price": {
+                                        "type": "integer"
+                                    },
+                                    "image": {
+                                        "type": "string"
+                                    },
+                                    "foodtypeId": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Food updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Food"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete a food",
+                "tags": [
+                    "Food"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Food deleted successfully"
+                    },
+                    "404": {
+                        "description": "Food not found"
+                    }
+                }
+            }
+        },
+        "/food/foodtype/:foodtypeId": {
+            "get": {
+                "summary": "Get foods by foodtypeId",
+                "tags": [
+                    "Food"
+                ],
+                "parameters": [
+                    {
+                        "name": "foodtypeId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Foods found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Food"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No foods found"
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -359,26 +864,119 @@
             "User": {
                 "type": "object",
                 "properties": {
-                    "id": { "type": "string" },
-                    "name": { "type": "string" },
-                    "email": { "type": "string", "format": "email" },
-                    "age": { "type": "integer" },
-                    "first_name": { "type": "string" },
-                    "last_name": { "type": "string" },
-                    "father_name": { "type": "string" },
-                    "connects": { "type": "integer" }
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "age": {
+                        "type": "integer"
+                    },
+                    "first_name": {
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "type": "string"
+                    },
+                    "father_name": {
+                        "type": "string"
+                    },
+                    "connects": {
+                        "type": "integer"
+                    }
                 }
             },
             "Foodtype": {
                 "type": "object",
                 "properties": {
-                    "id": { "type": "string" },
-                    "name": { "type": "string" },
-                    "description": { "type": "string" }
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Restaurant": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "address": {
+                        "type": "string"
+                    },
+                    "phone": {
+                        "type": "string"
+                    },
+                    "about": {
+                        "type": "string"
+                    },
+                    "latitude": {
+                        "type": "number"
+                    },
+                    "longitude": {
+                        "type": "number"
+                    }
+                }
+            },
+            "Food": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "type": "integer"
+                    },
+                    "image": {
+                        "type": "string"
+                    },
+                    "foodtypeId": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Supplier": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "latitude": {
+                        "type": "number"
+                    },
+                    "longitude": {
+                        "type": "number"
+                    },
+                    "phone": {
+                        "type": "integer"
+                    }
                 }
             }
         }
     },
-    "apis": ["./routes/user.js"]
+    "apis": [
+        "./routes/user.js"
+    ]
 }
-

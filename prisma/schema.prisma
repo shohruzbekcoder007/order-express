@@ -30,7 +30,26 @@ model Restaurant {
 }
 
 model Foodtype {
-  id   String @id @default(auto()) @map("_id") @db.ObjectId
-  name String @unique
-  description String? @db.String
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  name       String   @unique
+  description String?  @db.String
+  foods      Food[]
+}
+
+model Food {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String   @unique
+  description String?  @db.String
+  price       Int      @default(0)
+  image       String?  @db.String
+  foodtype    Foodtype @relation(fields: [foodtypeId], references: [id])
+  foodtypeId  String   @db.ObjectId
+}
+
+model Supplier {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  name       String   @unique
+  latitude   Float?  @db.Double
+  longitude  Float?  @db.Double
+  phone      Int
 }

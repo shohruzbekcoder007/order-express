@@ -7,7 +7,14 @@ router.post("/restaurants", async (req, res) => {
     const { name, address, phone, about, latitude, longitude } = req.body;
     try {
         const restaurant = await prisma.restaurant.create({
-            data: { name, address, phone, about, latitude, longitude },
+            data: {
+                name,
+                address,
+                phone: parseInt(phone),
+                about,
+                latitude,
+                longitude
+            }
         });
         return res.status(201).json(restaurant);
     } catch (error) {
@@ -17,9 +24,23 @@ router.post("/restaurants", async (req, res) => {
 
 // Barcha restaraunt-larni olish
 router.get("/restaurants", async (req, res) => {
+    const { page = 1, limit = 10 } = req.query;
+    const skip = (page - 1) * limit;
     try {
-        const restaurants = await prisma.restaurant.findMany();
-        return res.json(restaurants);
+        const [restaurants, totalRestaurants] = await Promise.all([
+            prisma.restaurant.findMany({
+                skip: skip,
+                take: parseInt(limit, 10),
+            }),
+            prisma.restaurant.count(),
+        ]);
+        let response = {
+            data: restaurants,
+            total: totalRestaurants,
+            currentPage: page,
+            totalPages: Math.ceil(totalRestaurants / limit),
+        }
+        return res.json(response);
     } catch (error) {
         return res.status(500).json({ error: error.message });
     }
@@ -30,7 +51,7 @@ router.get("/restaurant/:id", async (req, res) => {
     const { id } = req.params;
     try {
         const restaurant = await prisma.restaurant.findUnique({
-            where: { id: Number(id) }
+            where: { id: String(id) }
         });
         return res.json(restaurant);
     } catch (error) {
@@ -39,13 +60,18 @@ router.get("/restaurant/:id", async (req, res) => {
 });
 
 // Restaraunt-ni yangilash
-router.put("/restaurants/:id", async (req, res) => {
+router.put("/restaurant/:id", async (req, res) => {
     const { id } = req.params;
-    const { name, address, phone, about, foodtypes } = req.body;
+    const { name, address, phone, about } = req.body;
     try {
         const updatedRestaurant = await prisma.restaurant.update({
             where: { id: Number(id) },
-            data: { name, address, phone, about },
+            data: {
+                name,
+                address,
+                phone: parseInt(phone),
+                about
+            }
         });
         return res.json(updatedRestaurant);
     } catch (error) {
@@ -54,7 +80,7 @@ router.put("/restaurants/:id", async (req, res) => {
 });
 
 // Restaraunt-ni o'chirish
-router.delete("/restaurants/:id", async (req, res) => {
+router.delete("/restaurant/:id", async (req, res) => {
     const { id } = req.params;
     try {
         await prisma.restaurant.delete({ where: { id: Number(id) } });
@@ -65,3 +91,4 @@ router.delete("/restaurants/:id", async (req, res) => {
 });
 
 module.exports = router;
+
