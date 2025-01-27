@@ -72,7 +72,7 @@ router.put("/foodtypes/:id", async (req, res) => {
 router.delete("/foodtypes/:id", async (req, res) => {
     const { id } = req.params;
     try {
-        await prisma.foodtype.delete({ where: { id: Number(id) } });
+        await prisma.foodtype.delete({ where: { id: String(id) } });
         return res.status(204).send();
     } catch (error) {
         return res.status(400).json({ error: error.message });
