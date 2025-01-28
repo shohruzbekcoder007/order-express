@@ -18,22 +18,31 @@ router.post("/foodtypes", async (req, res) => {
 
 // Barcha foodtype-larni olish
 router.get("/foodtypes", async (req, res) => {
-    const { page = 1, limit = 10 } = req.query;
+    const { page = 1, limit = 10, search } = req.query;
+    console.log(search);
     const skip = (page - 1) * limit;
+    const where = {};
+    if (search) {
+        where.OR = [
+            { name: { contains: search } },
+            { description: { contains: search } },
+        ];
+    }
     try {
         const [foodtypes, totalFoodtypes] = await Promise.all([
             prisma.foodtype.findMany({
                 skip: skip,
                 take: parseInt(limit, 10),
+                where,
             }),
-            prisma.foodtype.count(),
+            prisma.foodtype.count({ where }),
         ]);
         let response = {
             data: foodtypes,
             total: totalFoodtypes,
             currentPage: page,
             totalPages: Math.ceil(totalFoodtypes / limit),
-        }
+        };
         return res.json(response);
     } catch (error) {
         return res.status(500).json({ error: error.message });

@@ -36,6 +36,14 @@ model Foodtype {
   foods      Food[]
 }
 
+model FoodMeasure {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  name       String   @unique
+  description String?  @db.String
+  foods      Food[]
+}
+
+
 model Food {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   name        String   @unique
@@ -44,12 +52,34 @@ model Food {
   image       String?  @db.String
   foodtype    Foodtype @relation(fields: [foodtypeId], references: [id])
   foodtypeId  String   @db.ObjectId
+  foodmeasure    FoodMeasure @relation(fields: [foodmeasureId], references: [id])
+  foodmeasureId  String   @db.ObjectId
 }
 
 model Supplier {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
   name       String   @unique
+  firstName  String?  @db.String
+  lastName   String?  @db.String
+  fatherName String?  @db.String
   latitude   Float?  @db.Double
   longitude  Float?  @db.Double
   phone      Int
 }
+
+// model Order {
+//   id         String   @id @default(auto()) @map("_id") @db.ObjectId
+//   user       User     @relation(fields: [userId], references: [id])
+//   userId     String   @db.ObjectId
+//   restaurant Restaurant @relation(fields: [restaurantId], references: [id])
+//   restaurantId String @db.ObjectId
+//   supplier   Supplier @relation(fields: [supplierId], references: [id])
+//   supplierId String @db.ObjectId
+//   food       Food     @relation(fields: [foodId], references: [id])
+//   foodId     String   @db.ObjectId
+//   quantity   Int
+//   price      Int
+//   status     String
+//   createdAt  DateTime @default(now())
+//   updatedAt  DateTime @updatedAt
+// }

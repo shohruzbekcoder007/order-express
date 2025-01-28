@@ -6,6 +6,7 @@ const foodtype = require('./routers/foodtype.router');
 const restaurant = require('./routers/restaurant.router');
 const food = require('./routers/food.router');
 const supplier = require('./routers/supplier.router');
+const foodmeasure = require('./routers/foodmeasure.router');
 
 const swaggerJsdoc = require("swagger-jsdoc")
 const swaggerUi = require("swagger-ui-express")
@@ -27,6 +28,7 @@ app.use('/api/foodtype', foodtype)
 app.use('/api/restaurant', restaurant)
 app.use('/api/food', food)
 app.use('/api/supplier', supplier)
+app.use('/api/foodmeasure', foodmeasure)
 
 app.use(
     "/api-docs",

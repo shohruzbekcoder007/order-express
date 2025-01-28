@@ -4,10 +4,10 @@ const prisma = require("../prisma/prismaQuery");
 
 // Create a new supplier
 router.post("/suppliers", async (req, res) => {
-    const { name, contact, email } = req.body;
+    const { name, contact, email, firstName, lastName, fatherName } = req.body;
     try {
         const supplier = await prisma.supplier.create({
-            data: { name, contact, email },
+            data: { name, contact, email, firstName, lastName, fatherName },
         });
         return res.status(201).json(supplier);
     } catch (error) {
@@ -41,11 +41,11 @@ router.get("/suppliers/:id", async (req, res) => {
 // Update a supplier
 router.put("/suppliers/:id", async (req, res) => {
     const { id } = req.params;
-    const { name, contact, email } = req.body;
+    const { name, contact, email, firstName, lastName, fatherName } = req.body;
     try {
         const updatedSupplier = await prisma.supplier.update({
             where: { id: Number(id) },
-            data: { name, contact, email },
+            data: { name, contact, email, firstName, lastName, fatherName },
         });
         return res.json(updatedSupplier);
     } catch (error) {
