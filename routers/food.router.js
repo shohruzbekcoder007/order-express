@@ -1,16 +1,15 @@
-const express = require('express')
-const router = express.Router()
-const prisma = require("../prisma/prismaQuery")
+const express = require('express');
+const router = express.Router();
+const prisma = require("../prisma/prismaQuery");
 
 // Yangi ovqat qo'shish
 router.post("/foods", async (req, res) => {
-    const { name, description, price, image, foodtypeId, foodmeasureId } = req.body;
+    const { name, description, image, foodtypeId, foodmeasureId } = req.body;
     try {
         const food = await prisma.food.create({
             data: {
                 name,
                 description,
-                price: parseInt(price),
                 image,
                 foodtype: { connect: { id: String(foodtypeId) } },
                 foodmeasure: { connect: { id: String(foodmeasureId) } }
@@ -62,14 +61,13 @@ router.get("/food/:id", async (req, res) => {
 // Ovqat-ni yangilash
 router.put("/food/:id", async (req, res) => {
     const { id } = req.params;
-    const { name, description, price, image, foodtypeId, foodmeasureId } = req.body;
+    const { name, description, image, foodtypeId, foodmeasureId } = req.body;
     try {
         const updatedFood = await prisma.food.update({
             where: { id: String(id) },
             data: {
                 name,
                 description,
-                price: parseInt(price),
                 image,
                 foodtype: { connect: { id: String(foodtypeId) } },
                 foodmeasure: { connect: { id: String(foodmeasureId) } }

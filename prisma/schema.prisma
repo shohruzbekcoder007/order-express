@@ -7,79 +7,106 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum DraftBasketStatus {
+  DRAFT
+  ORDERED
+  CANCELED
+  DELIVERED
+}
+
 model User {
-  id       String   @id @default(auto()) @map("_id") @db.ObjectId
-  name     String   @unique
-  email    String   @unique
-  age      Int
-  firstName String? @db.String
-  lastName  String? @db.String
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  name       String  @unique
+  email      String  @unique
+  age        Int
+  firstName  String? @db.String
+  lastName   String? @db.String
   fatherName String? @db.String
-  connects  Int     @default(0)
-  password  String  @default("") @map("password") @db.String
+  connects   Int     @default(0)
+  password   String  @default("") @map("password") @db.String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  draftbaskets DraftBasket[]
 }
 
 model Restaurant {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  name       String   @unique
-  address    String?  @db.String
-  latitude   Float?  @db.Double
-  longitude  Float?  @db.Double
-  about      String?  @db.String
-  phone      Int
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  name      String  @unique
+  address   String? @db.String
+  latitude  Float?  @db.Double
+  longitude Float?  @db.Double
+  about     String? @db.String
+  phone     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  foodprices        FoodPrice[]
 }
 
 model Foodtype {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  name       String   @unique
-  description String?  @db.String
-  foods      Food[]
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  name        String  @unique
+  description String? @db.String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  foods       Food[]
 }
 
 model FoodMeasure {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  name       String   @unique
-  description String?  @db.String
-  foods      Food[]
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  name        String  @unique
+  description String? @db.String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  foods       Food[]
 }
 
-
 model Food {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  name        String   @unique
-  description String?  @db.String
-  price       Int      @default(0)
-  image       String?  @db.String
-  foodtype    Foodtype @relation(fields: [foodtypeId], references: [id])
-  foodtypeId  String   @db.ObjectId
-  foodmeasure    FoodMeasure @relation(fields: [foodmeasureId], references: [id])
-  foodmeasureId  String   @db.ObjectId
+  id            String      @id @default(auto()) @map("_id") @db.ObjectId
+  name          String      @unique
+  description   String?     @db.String
+  image         String?     @db.String
+  foodtype      Foodtype    @relation(fields: [foodtypeId], references: [id])
+  foodtypeId    String      @db.ObjectId
+  foodmeasure   FoodMeasure @relation(fields: [foodmeasureId], references: [id])
+  foodmeasureId String      @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  foodprices        FoodPrice[]
+}
+
+model FoodPrice {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  food      Food    @relation(fields: [foodId], references: [id])
+  foodId    String  @db.ObjectId
+  restaurant Restaurant @relation(fields: [restaurantId], references: [id])
+  restaurantId String @db.ObjectId
+  price     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  draftbaskets DraftBasket[]
+}
+
+model DraftBasket {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  user      User    @relation(fields: [userId], references: [id])
+  userId    String  @db.ObjectId
+  foodprice FoodPrice @relation(fields: [foodpriceId], references: [id])
+  foodpriceId String @db.ObjectId
+  quantity  Int
+  status    DraftBasketStatus @default(DRAFT)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Supplier {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  name       String   @unique
-  firstName  String?  @db.String
-  lastName   String?  @db.String
-  fatherName String?  @db.String
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  name       String  @unique
+  firstName  String? @db.String
+  lastName   String? @db.String
+  fatherName String? @db.String
   latitude   Float?  @db.Double
   longitude  Float?  @db.Double
   phone      Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
-
-// model Order {
-//   id         String   @id @default(auto()) @map("_id") @db.ObjectId
-//   user       User     @relation(fields: [userId], references: [id])
-//   userId     String   @db.ObjectId
-//   restaurant Restaurant @relation(fields: [restaurantId], references: [id])
-//   restaurantId String @db.ObjectId
-//   supplier   Supplier @relation(fields: [supplierId], references: [id])
-//   supplierId String @db.ObjectId
-//   food       Food     @relation(fields: [foodId], references: [id])
-//   foodId     String   @db.ObjectId
-//   quantity   Int
-//   price      Int
-//   status     String
-//   createdAt  DateTime @default(now())
-//   updatedAt  DateTime @updatedAt
-// }
