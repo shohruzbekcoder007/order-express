@@ -96,6 +96,15 @@ model DraftBasket {
   status    DraftBasketStatus @default(DRAFT)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  backet    Basket @relation(fields: [backetId], references: [id])
+  backetId  String @db.ObjectId @default("")
+}
+
+model Basket {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  supplier  Supplier @relation(fields: [supplierId], references: [id])
+  supplierId String  @db.ObjectId
+  backets   DraftBasket[]
 }
 
 model Supplier {
@@ -109,4 +118,5 @@ model Supplier {
   phone      Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  baskets    Basket[]
 }
