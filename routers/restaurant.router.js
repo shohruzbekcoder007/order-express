@@ -4,7 +4,7 @@ const prisma = require("../prisma/prismaQuery");
 
 // Yangi restaraunt qo'shish
 router.post("/restaurants", async (req, res) => {
-    const { name, address, phone, about, latitude, longitude } = req.body;
+    const { name, address, phone, about, latitude, longitude, aboutRu, aboutUz } = req.body;
     try {
         const restaurant = await prisma.restaurant.create({
             data: {
@@ -13,7 +13,9 @@ router.post("/restaurants", async (req, res) => {
                 phone: parseInt(phone),
                 about,
                 latitude,
-                longitude
+                longitude,
+                aboutRu,
+                aboutUz
             }
         });
         return res.status(201).json(restaurant);
@@ -62,15 +64,17 @@ router.get("/restaurant/:id", async (req, res) => {
 // Restaraunt-ni yangilash
 router.put("/restaurant/:id", async (req, res) => {
     const { id } = req.params;
-    const { name, address, phone, about } = req.body;
+    const { name, address, phone, about, aboutRu, aboutUz } = req.body;
     try {
         const updatedRestaurant = await prisma.restaurant.update({
-            where: { id: Number(id) },
+            where: { id: String(id) },
             data: {
                 name,
                 address,
                 phone: parseInt(phone),
-                about
+                about,
+                aboutRu,
+                aboutUz
             }
         });
         return res.json(updatedRestaurant);
@@ -83,7 +87,7 @@ router.put("/restaurant/:id", async (req, res) => {
 router.delete("/restaurant/:id", async (req, res) => {
     const { id } = req.params;
     try {
-        await prisma.restaurant.delete({ where: { id: Number(id) } });
+        await prisma.restaurant.delete({ where: { id: String(id) } });
         return res.status(204).send();
     } catch (error) {
         return res.status(400).json({ error: error.message });

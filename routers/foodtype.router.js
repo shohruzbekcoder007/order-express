@@ -4,10 +4,24 @@ const prisma = require("../prisma/prismaQuery");
 
 // Yangi foodtype qo'shish
 router.post("/foodtypes", async (req, res) => {
-    const { name, description } = req.body;
+    const {
+        name,
+        description,
+        nameUz,
+        nameRu,
+        descriptionUz,
+        descriptionRu,
+    } = req.body;
     try {
         const foodtype = await prisma.foodtype.create({
-            data: { name, description },
+            data: {
+                name,
+                description,
+                nameUz,
+                nameRu,
+                descriptionUz,
+                descriptionRu,
+            },
         });
         return res.status(201).json(foodtype);
     } catch (error) {
@@ -26,6 +40,10 @@ router.get("/foodtypes", async (req, res) => {
         where.OR = [
             { name: { contains: search } },
             { description: { contains: search } },
+            { nameUz: { contains: search } },
+            { nameRu: { contains: search } },
+            { descriptionUz: { contains: search } },
+            { descriptionRu: { contains: search } },
         ];
     }
     try {
@@ -65,11 +83,25 @@ router.get("/foodtype/:id", async (req, res) => {
 // Foodtype-ni yangilash
 router.put("/foodtypes/:id", async (req, res) => {
     const { id } = req.params;
-    const { name, description } = req.body;
+    const {
+        name,
+        description,
+        nameUz,
+        nameRu,
+        descriptionUz,
+        descriptionRu,
+    } = req.body;
     try {
         const updatedFoodtype = await prisma.foodtype.update({
             where: { id: String(id) },
-            data: { name, description },
+            data: {
+                name,
+                description,
+                nameUz,
+                nameRu,
+                descriptionUz,
+                descriptionRu,
+            },
         });
         return res.json(updatedFoodtype);
     } catch (error) {
@@ -89,3 +121,5 @@ router.delete("/foodtypes/:id", async (req, res) => {
 });
 
 module.exports = router;
+
+

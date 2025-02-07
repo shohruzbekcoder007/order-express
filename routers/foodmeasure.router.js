@@ -4,10 +4,10 @@ const { FoodMeasure } = require('../prisma/prismaQuery');
 
 // Yangi foodmeasure qo'shish
 router.post("/foodmeasures", async (req, res) => {
-    const { name, description } = req.body;
+    const { name, description, nameUz, nameRu, descriptionUz, descriptionRu } = req.body;
     try {
         const foodmeasure = await FoodMeasure.create({
-            data: { name, description },
+            data: { name, description, nameUz, nameRu, descriptionUz, descriptionRu },
         });
         return res.status(201).json(foodmeasure);
     } catch (error) {
@@ -55,11 +55,11 @@ router.get("/foodmeasure/:id", async (req, res) => {
 // Foodmeasure-ni yangilash
 router.put("/foodmeasure/:id", async (req, res) => {
     const { id } = req.params;
-    const { name, description } = req.body;
+    const { name, description, nameUz, nameRu, descriptionUz, descriptionRu } = req.body;
     try {
         const updatedFoodmeasure = await FoodMeasure.update({
             where: { id: String(id) },
-            data: { name, description },
+            data: { name, description, nameUz, nameRu, descriptionUz, descriptionRu },
         });
         return res.json(updatedFoodmeasure);
     } catch (error) {
@@ -79,3 +79,4 @@ router.delete("/foodmeasure/:id", async (req, res) => {
 });
 
 module.exports = router;
+

@@ -4,13 +4,17 @@ const prisma = require("../prisma/prismaQuery");
 
 // Yangi ovqat qo'shish
 router.post("/foods", async (req, res) => {
-    const { name, description, image, foodtypeId, foodmeasureId } = req.body;
+    const { name, description, image, foodtypeId, foodmeasureId, nameUz, nameRu, descriptionUz, descriptionRu } = req.body;
     try {
         const food = await prisma.food.create({
             data: {
                 name,
                 description,
                 image,
+                nameUz,
+                nameRu,
+                descriptionUz,
+                descriptionRu,
                 foodtype: { connect: { id: String(foodtypeId) } },
                 foodmeasure: { connect: { id: String(foodmeasureId) } }
             }
@@ -30,6 +34,10 @@ router.get("/foods", async (req, res) => {
             prisma.food.findMany({
                 skip: skip,
                 take: parseInt(limit, 10),
+                include: {
+                    foodtype: true,
+                    foodmeasure: true,
+                },
             }),
             prisma.food.count(),
         ]);
@@ -50,7 +58,10 @@ router.get("/food/:id", async (req, res) => {
     const { id } = req.params;
     try {
         const food = await prisma.food.findUnique({
-            where: { id: String(id) }
+            where: { id: String(id) },
+            include: {
+                foodtype: true,
+            },
         });
         return res.json(food);
     } catch (error) {
@@ -61,7 +72,7 @@ router.get("/food/:id", async (req, res) => {
 // Ovqat-ni yangilash
 router.put("/food/:id", async (req, res) => {
     const { id } = req.params;
-    const { name, description, image, foodtypeId, foodmeasureId } = req.body;
+    const { name, description, image, foodtypeId, foodmeasureId, nameUz, nameRu, descriptionUz, descriptionRu } = req.body;
     try {
         const updatedFood = await prisma.food.update({
             where: { id: String(id) },
@@ -69,6 +80,10 @@ router.put("/food/:id", async (req, res) => {
                 name,
                 description,
                 image,
+                nameUz,
+                nameRu,
+                descriptionUz,
+                descriptionRu,
                 foodtype: { connect: { id: String(foodtypeId) } },
                 foodmeasure: { connect: { id: String(foodmeasureId) } }
             }

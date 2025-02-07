@@ -4,10 +4,10 @@ const prisma = require("../prisma/prismaQuery");
 
 // Create a new supplier
 router.post("/suppliers", async (req, res) => {
-    const { name, contact, email, firstName, lastName, fatherName } = req.body;
+    const { name, contact, email, firstName, lastName, fatherName, phone, latitude, longitude } = req.body;
     try {
         const supplier = await prisma.supplier.create({
-            data: { name, contact, email, firstName, lastName, fatherName },
+            data: { name, contact, email, firstName, lastName, fatherName, phone, latitude, longitude },
         });
         return res.status(201).json(supplier);
     } catch (error) {
@@ -26,11 +26,11 @@ router.get("/suppliers", async (req, res) => {
 });
 
 // Get a supplier by ID
-router.get("/suppliers/:id", async (req, res) => {
+router.get("/supplier/:id", async (req, res) => {
     const { id } = req.params;
     try {
         const supplier = await prisma.supplier.findUnique({
-            where: { id: Number(id) },
+            where: { id: String(id) },
         });
         return res.json(supplier);
     } catch (error) {
@@ -39,13 +39,13 @@ router.get("/suppliers/:id", async (req, res) => {
 });
 
 // Update a supplier
-router.put("/suppliers/:id", async (req, res) => {
+router.put("/supplier/:id", async (req, res) => {
     const { id } = req.params;
-    const { name, contact, email, firstName, lastName, fatherName } = req.body;
+    const { name, contact, email, firstName, lastName, fatherName, phone, latitude, longitude } = req.body;
     try {
         const updatedSupplier = await prisma.supplier.update({
-            where: { id: Number(id) },
-            data: { name, contact, email, firstName, lastName, fatherName },
+            where: { id: String(id) },
+            data: { name, contact, email, firstName, lastName, fatherName, phone, latitude, longitude },
         });
         return res.json(updatedSupplier);
     } catch (error) {
@@ -54,10 +54,10 @@ router.put("/suppliers/:id", async (req, res) => {
 });
 
 // Delete a supplier
-router.delete("/suppliers/:id", async (req, res) => {
+router.delete("/supplier/:id", async (req, res) => {
     const { id } = req.params;
     try {
-        await prisma.supplier.delete({ where: { id: Number(id) } });
+        await prisma.supplier.delete({ where: { id: String(id) } });
         return res.status(204).send();
     } catch (error) {
         return res.status(400).json({ error: error.message });
